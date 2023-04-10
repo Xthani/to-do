@@ -6,6 +6,7 @@ const Auth = () => {
   return (
     <div className="auth">
       <AuthForm />
+
     </div>
   );
 };
