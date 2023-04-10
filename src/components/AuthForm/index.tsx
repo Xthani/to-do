@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import Login from "./Login";
-import "./AuthForm.scss";
+import Login from './Login';
+import './AuthForm.scss';
 
 const AuthForm = () => {
   return (

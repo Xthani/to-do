@@ -1,12 +1,12 @@
-import React from "react";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import React from 'react';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Form, Input } from 'antd';
 
-import "./AuthForm.scss";
+import './AuthForm.scss';
 
 const Login = () => {
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+    console.log('Received values of form: ', values);
   };
 
   return (
@@ -19,7 +19,7 @@ const Login = () => {
       >
         <Form.Item
           name="username"
-          rules={[{ required: true, message: "Please input your Username!" }]}
+          rules={[{ required: true, message: 'Please input your Username!' }]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -28,7 +28,7 @@ const Login = () => {
         </Form.Item>
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
+          rules={[{ required: true, message: 'Please input your Password!' }]}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}

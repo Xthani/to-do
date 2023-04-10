@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from ".";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '.';
 
 interface ITodo {
   text: string;
@@ -17,7 +17,7 @@ const initialState: CounterState = {
 };
 
 export const counterSlice = createSlice({
-  name: "counter",
+  name: 'counter',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
