@@ -6,7 +6,7 @@ import Registration from './Registration';
 import { useSearchParams } from 'react-router-dom';
 import cn from 'classnames';
 
-const AuthForm = () => {
+function AuthForm() {
   const [searchParams] = useSearchParams();
   const isActive = searchParams.get('form') === 'registration';
 
@@ -16,6 +16,6 @@ const AuthForm = () => {
       <Registration />
     </div>
   );
-};
+}
 
 export default AuthForm;

@@ -6,7 +6,7 @@ import './AuthForm.scss';
 import { useSearchParams } from 'react-router-dom';
 import cn from 'classnames';
 
-const Login = () => {
+function Login() {
   const [searchParams, setSearchParams] = useSearchParams();
   const isActive = searchParams.get('form') !== 'registration';
 
@@ -60,6 +60,6 @@ const Login = () => {
       </Form>
     </div>
   );
-};
+}
 
 export default Login;
