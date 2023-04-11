@@ -1,27 +1,36 @@
 import React from 'react';
-import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Typography } from 'antd';
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
+import { Button, Form, Input } from 'antd';
+import cn from 'classnames';
 
 import './AuthForm.scss';
 import { useSearchParams } from 'react-router-dom';
-import cn from 'classnames';
 
-const Login = () => {
+const Registration = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const isActive = searchParams.get('form') !== 'registration';
+  const isActive = searchParams.get('form') === 'registration';
 
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
   };
 
-  const handleRegisterClick = () => {
-    setSearchParams({ form: 'registration' });
+  const handleLoginClick = () => {
+    setSearchParams({ form: 'login' });
   };
 
   return (
-    <div className={cn('login', { active: isActive })}>
+    <div className={cn('registration', { active: isActive })}>
       <Form name="normal_login" className="login-form" onFinish={onFinish}>
-        <h2 className="login__title">Login</h2>
+        <h2 className="registration__title">Registration</h2>
+        <Form.Item
+          name="username"
+          rules={[{ required: true, message: 'Please input your Username!' }]}
+        >
+          <Input
+            suffix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username"
+          />
+        </Form.Item>
         <Form.Item
           name="email"
           rules={[{ required: true, message: 'Please input your Username!' }]}
@@ -46,20 +55,20 @@ const Login = () => {
           <Button
             type="primary"
             htmlType="submit"
-            className="login-form-button login__button"
+            className="registration-form-button registration__button"
           >
             Log in
           </Button>
         </Form.Item>
-        <Typography.Text className="login__register">
-          Don&rsquo;t have an account?{' '}
-          <b onClick={handleRegisterClick} className="login__register_text">
-            Register
+        <p className="registration__register">
+          Already have an account?{' '}
+          <b onClick={handleLoginClick} className="registration__register_text">
+            Login
           </b>
-        </Typography.Text>
+        </p>
       </Form>
     </div>
   );
 };
 
-export default Login;
+export default Registration;

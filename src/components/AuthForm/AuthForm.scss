@@ -1,11 +1,58 @@
-@import "../../common/styles/variables.scss";
+@import '../../common/styles/variables.scss';
+
+.forms {
+  position: relative;
+  display: flex;
+  color: $white;
+  width: $form-width;
+  border: 2px solid $form-border-color;
+  backdrop-filter: blur($form-bg-blur);
+  border-radius: $form-border-rd;
+  text-align: center;
+  transition: height $form-transition-duration;
+  height: $form-height;
+  overflow: hidden;
+
+  &.active {
+    // height of one extra input
+    height: calc($form-height + $form-extra-input-height);
+    transition: height $form-transition-duration;
+  }
+}
+
+.registration {
+  position: absolute;
+  transform: translate($form-offsets);
+}
 
 .login {
-  padding: 40px 20px;
-  background-color: $white;
-  border-radius: 5px;
+  transform: translate(-$form-offsets);
+}
+
+.login,
+.registration {
+  padding: 40px;
+  width: 100%;
+  transition: transform $form-transition-duration;
+
+  &.active {
+    transform: translate(0px);
+  }
+
+  &__register {
+    color: $white;
+
+    &_text:hover {
+      cursor: pointer;
+    }
+  }
+  &__title {
+    margin-bottom: 24px;
+    color: $white;
+  }
 
   &__button {
     width: 100%;
+    font-weight: 800;
   }
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import './Auth.scss';
+
 import AuthForm from '../../components/AuthForm';
+import './Auth.scss';
 
 const Auth = () => {
   return (
     <div className="auth">
       <AuthForm />
-
     </div>
   );
 };
