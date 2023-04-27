@@ -1,3 +1,4 @@
+import { NoticeType } from 'antd/es/message/interface';
 import { UserCredential } from 'firebase/auth';
 export interface ITodo {
   title: string;
@@ -11,7 +12,11 @@ export interface IUserState {
   isLoading: boolean;
 }
 
-export interface TodoListState {
+export interface IMessageState {
+  content: React.ReactNode;
+  type?: NoticeType;
+}
+
+export interface ITodoListState {
   todos: ITodo[];
-  user: IUserState;
 }

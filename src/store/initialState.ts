@@ -1,4 +1,4 @@
-import { IUserState, TodoListState } from './types';
+import { IUserState, ITodoListState, IMessageState } from './types';
 
 const userInitial: IUserState = {
   isLoading: false,
@@ -6,7 +6,13 @@ const userInitial: IUserState = {
   error: null,
 };
 
-export const initialState: TodoListState = {
-  todos: [],
-  user: userInitial,
+const messageInitial: IMessageState = {
+  content: null,
+  type: 'info',
 };
+
+const todoInitial: ITodoListState = {
+  todos: [],
+};
+
+export { userInitial, messageInitial, todoInitial };

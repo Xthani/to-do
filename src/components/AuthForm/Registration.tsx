@@ -1,17 +1,18 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
+import { useSearchParams } from 'react-router-dom';
 import { Button, Form, Input } from 'antd';
+import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
 
-import './AuthForm.scss';
-import { useSearchParams } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { registerSchema } from '../../common/validations';
-import { TRegistration } from './types';
 import { fetchSignUp } from '../../store/actions/authAC';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { isAuthLoadingSelector } from '../../store/selectors';
+
+import { TRegistration } from './types';
+import './AuthForm.scss';
 
 function Registration() {
   const [searchParams, setSearchParams] = useSearchParams();

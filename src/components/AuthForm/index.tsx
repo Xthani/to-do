@@ -1,10 +1,10 @@
 import React from 'react';
+import cn from 'classnames';
+import { useSearchParams } from 'react-router-dom';
 
 import Login from './Login';
-import './AuthForm.scss';
 import Registration from './Registration';
-import { useSearchParams } from 'react-router-dom';
-import cn from 'classnames';
+import './AuthForm.scss';
 
 function AuthForm() {
   const [searchParams] = useSearchParams();

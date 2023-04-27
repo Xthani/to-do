@@ -3,15 +3,16 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Typography } from 'antd';
-
-import './AuthForm.scss';
 import { useSearchParams } from 'react-router-dom';
 import cn from 'classnames';
+
 import { loginSchema } from '../../common/validations';
-import { TLoginForm } from './types';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { fetchSignIn } from '../../store/actions/authAC';
 import { isAuthLoadingSelector } from '../../store/selectors';
+
+import { TLoginForm } from './types';
+import './AuthForm.scss';
 
 function Login() {
   const [searchParams, setSearchParams] = useSearchParams();

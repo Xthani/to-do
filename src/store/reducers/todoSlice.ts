@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initialState } from '../initialState';
+
+import { todoInitial } from '../initialState';
 import { ITodo } from '../types';
 
-export const slice = createSlice({
+export const todoSlice = createSlice({
   name: 'todos',
-  initialState,
+  initialState: todoInitial,
   reducers: {
     addTodo: (state, action: PayloadAction<ITodo>) => {
       state.todos.unshift(action.payload);
@@ -28,6 +29,6 @@ export const slice = createSlice({
 });
 
 export const { addTodo, removeTodo, editTodo, toggleTodoStatus } =
-  slice.actions;
+  todoSlice.actions;
 
-export default slice.reducer;
+export default todoSlice.reducer;

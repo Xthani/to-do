@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Checkbox, Input, Button, Typography } from 'antd';
-import './TodoList.scss';
+
 import { useAppDispatch, useAppSelector } from '../../store';
 import {
   addTodo,
@@ -9,6 +9,7 @@ import {
   toggleTodoStatus,
 } from '../../store/reducers/todoSlice';
 import { todosSelector } from '../../store/selectors';
+import './TodoList.scss';
 
 function TodoList(): JSX.Element {
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);

@@ -1,18 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserCredential } from 'firebase/auth';
+
 import { fetchSignUp, fetchSignIn } from '../actions/authAC';
+import { userInitial } from '../initialState';
 
 export interface IUserState {
   error: string | null;
   data: UserCredential | null;
   isLoading: boolean;
 }
-
-const initialState: IUserState = {
-  isLoading: false,
-  data: null,
-  error: null,
-};
 
 const authReject = (state: IUserState, action: PayloadAction<string>) => {
   state.isLoading = false;
@@ -29,7 +25,7 @@ const authFulfilled = (state: IUserState) => {
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: userInitial,
   reducers: {},
   extraReducers: {
     // Signup
