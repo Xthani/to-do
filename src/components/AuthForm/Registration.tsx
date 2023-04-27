@@ -8,21 +8,28 @@ import './AuthForm.scss';
 import { useSearchParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerSchema } from '../../common/validations';
+import { TRegistration } from './types';
+import { fetchSignUp } from '../../store/actions/authAC';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { isAuthLoadingSelector } from '../../store/selectors';
 
 function Registration() {
   const [searchParams, setSearchParams] = useSearchParams();
   const isActive = searchParams.get('form') === 'registration';
+  const isAuthLoading = useAppSelector(isAuthLoadingSelector);
+  const dispatch = useAppDispatch();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<TRegistration>({
     resolver: yupResolver(registerSchema),
   });
 
-  const onFinish = (values: any) => {
-    console.log('onFinish', values);
+  const onFinish = (values: TRegistration) => {
+    const { email, password } = values;
+    dispatch(fetchSignUp({ email, password }));
   };
 
   const handleLoginClick = () => {
@@ -92,11 +99,12 @@ function Registration() {
 
         <Form.Item>
           <Button
+            disabled={isAuthLoading}
             type="primary"
             htmlType="submit"
             className="registration-form-button registration__button"
           >
-            Log in
+            Sign up
           </Button>
         </Form.Item>
         <p className="registration__register">

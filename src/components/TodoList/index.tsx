@@ -7,13 +7,14 @@ import {
   editTodo,
   removeTodo,
   toggleTodoStatus,
-} from '../../store/slice';
+} from '../../store/reducers/todoSlice';
+import { todosSelector } from '../../store/selectors';
 
 function TodoList(): JSX.Element {
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
   const [editingTaskTitle, setEditingTaskTitle] = useState<string>('');
+  const tasks = useAppSelector(todosSelector);
 
-  const tasks = useAppSelector((state) => state.todoReducer.todos);
   const [newTask, setNewTask] = useState<string>('');
   const dispatch = useAppDispatch();
 
@@ -84,7 +85,9 @@ function TodoList(): JSX.Element {
           onChange={handleNewTaskChange}
           placeholder="Add a new task"
         />
-        <Button onClick={handleAddTask}>Add</Button>
+        <Button disabled={!newTask} type="primary" onClick={handleAddTask}>
+          Add
+        </Button>
       </div>
       <ul className="TodoList__task-list">
         {tasks.map((task) => (
