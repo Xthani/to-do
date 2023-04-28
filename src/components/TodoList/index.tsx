@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Input, Button, Typography } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -13,59 +13,49 @@ import './TodoList.scss';
 
 function TodoList(): JSX.Element {
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
-  const [editingTaskTitle, setEditingTaskTitle] = useState<string>('');
-  const tasks = useAppSelector(todosSelector);
+  const [editingTaskTitle, setEditingTaskTitle] = useState('');
+  const [newTask, setNewTask] = useState('');
 
-  const [newTask, setNewTask] = useState<string>('');
+  const tasks = useAppSelector(todosSelector);
   const dispatch = useAppDispatch();
 
-  const handleNewTaskChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setNewTask(event.target.value);
-    },
-    []
-  );
+  const handleNewTaskChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTask(event.target.value);
+  };
 
-  const handleAddTask = useCallback(() => {
+  const handleAddTask = (e: React.FormEvent) => {
+    e.preventDefault();
     if (newTask) {
       dispatch(
         addTodo({ id: Date.now(), title: newTask.trim(), isCompleted: false })
       );
       setNewTask('');
     }
-  }, [dispatch, newTask]);
+  };
 
-  const handleDeleteTask = useCallback(
-    (taskId: number) => {
-      dispatch(removeTodo(taskId));
-    },
-    [dispatch]
-  );
+  const handleDeleteTask = (taskId: number) => {
+    dispatch(removeTodo(taskId));
+  };
 
-  const handleToggleTaskDone = useCallback(
-    (taskId: number) => {
-      dispatch(toggleTodoStatus(taskId));
-    },
-    [dispatch]
-  );
+  const handleToggleTaskDone = (taskId: number) => {
+    dispatch(toggleTodoStatus(taskId));
+  };
 
-  const handleEditTask = useCallback(
-    (taskId: number) => {
-      const taskToEdit = tasks.find((task) => task.id === taskId);
-      if (taskToEdit) {
-        setEditingTaskId(taskId);
-        setEditingTaskTitle(taskToEdit.title);
-      }
-    },
-    [tasks]
-  );
+  const handleEditTask = (taskId: number) => {
+    const taskToEdit = tasks.find((task) => task.id === taskId);
+    if (taskToEdit) {
+      setEditingTaskId(taskId);
+      setEditingTaskTitle(taskToEdit.title);
+    }
+  };
 
-  const handleCancelEdit = useCallback(() => {
+  const handleCancelEdit = () => {
     setEditingTaskId(null);
     setEditingTaskTitle('');
-  }, []);
+  };
 
-  const handleUpdateTask = useCallback(() => {
+  const handleUpdateTask = (e: React.FormEvent) => {
+    e.preventDefault();
     const updatedTask = tasks.find((task) => task.id === editingTaskId);
 
     if (updatedTask) {
@@ -74,37 +64,44 @@ function TodoList(): JSX.Element {
 
     setEditingTaskId(null);
     setEditingTaskTitle('');
-  }, [editingTaskTitle, tasks, editingTaskId, dispatch]);
+  };
 
   return (
-    <div className="TodoList">
+    <div className="todo-list">
       <Typography.Title level={1}>Todo List</Typography.Title>
-      <div className="TodoList__add-task">
+      <form onSubmit={handleAddTask} className="todo-list__add-task">
         <Input
           type="text"
           value={newTask}
           onChange={handleNewTaskChange}
           placeholder="Add a new task"
         />
-        <Button disabled={!newTask} type="primary" onClick={handleAddTask}>
+        <Button
+          htmlType="submit"
+          disabled={!newTask}
+          type="primary"
+          onClick={handleAddTask}
+        >
           Add
         </Button>
-      </div>
-      <ul className="TodoList__task-list">
+      </form>
+      <ul className="todo-list__task-list">
         {tasks.map((task) => (
           <li key={task.id}>
             {editingTaskId === task.id ? (
-              <>
+              <form className="todo-list__task-list_item">
                 <Input
                   type="text"
                   value={editingTaskTitle}
                   onChange={(e) => setEditingTaskTitle(e.target.value)}
                 />
-                <Button onClick={handleUpdateTask}>Update</Button>
+                <Button htmlType="submit" onClick={handleUpdateTask}>
+                  Update
+                </Button>
                 <Button onClick={handleCancelEdit}>Cancel</Button>
-              </>
+              </form>
             ) : (
-              <>
+              <div className="todo-list__task-list_item">
                 <Checkbox
                   checked={task.isCompleted}
                   onChange={() => handleToggleTaskDone(task.id)}
@@ -115,7 +112,7 @@ function TodoList(): JSX.Element {
                   Delete
                 </Button>
                 <Button onClick={() => handleEditTask(task.id)}>Edit</Button>
-              </>
+              </div>
             )}
           </li>
         ))}

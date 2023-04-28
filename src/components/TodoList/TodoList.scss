@@ -1,4 +1,4 @@
-.TodoList {
+.todo-list {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -21,7 +21,6 @@
     button {
       flex-shrink: 0;
       width: 100px;
-      // background-color: green;
     }
   }
 
@@ -30,7 +29,7 @@
     margin: 0;
     padding: 0;
 
-    li {
+    &_item {
       display: flex;
       align-items: center;
       justify-content: space-between;
