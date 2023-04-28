@@ -6,3 +6,8 @@ export type TLoginForm = {
 export type TRegistration = TLoginForm & {
   username: string;
 };
+
+export enum EAuthForm {
+  RAGISTRATION = 'registration',
+  LOGIN = 'login',
+}

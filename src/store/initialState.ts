@@ -2,7 +2,6 @@ import { IUserState, ITodoListState, IMessageState } from './types';
 
 const userInitial: IUserState = {
   isLoading: false,
-  data: null,
   error: null,
 };
 

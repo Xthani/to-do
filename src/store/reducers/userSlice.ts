@@ -1,12 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserCredential } from 'firebase/auth';
 
 import { fetchSignUp, fetchSignIn } from '../actions/authAC';
 import { userInitial } from '../initialState';
 
 export interface IUserState {
   error: string | null;
-  data: UserCredential | null;
   isLoading: boolean;
 }
 

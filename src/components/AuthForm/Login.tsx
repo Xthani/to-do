@@ -11,12 +11,12 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { fetchSignIn } from '../../store/actions/authAC';
 import { isAuthLoadingSelector } from '../../store/selectors';
 
-import { TLoginForm } from './types';
+import { EAuthForm, TLoginForm } from './types';
 import './AuthForm.scss';
 
 function Login() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const isActive = searchParams.get('form') !== 'registration';
+  const isActive = searchParams.get('form') !== EAuthForm.RAGISTRATION;
   const isAuthLoading = useAppSelector(isAuthLoadingSelector);
 
   const dispatch = useAppDispatch();
@@ -34,7 +34,7 @@ function Login() {
   };
 
   const handleRegisterClick = () => {
-    setSearchParams({ form: 'registration' });
+    setSearchParams({ form: EAuthForm.RAGISTRATION });
   };
 
   return (

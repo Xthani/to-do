@@ -1,5 +1,4 @@
 import { NoticeType } from 'antd/es/message/interface';
-import { UserCredential } from 'firebase/auth';
 export interface ITodo {
   title: string;
   isCompleted: boolean;
@@ -8,7 +7,6 @@ export interface ITodo {
 
 export interface IUserState {
   error: string | null;
-  data: UserCredential | null;
   isLoading: boolean;
 }
 
