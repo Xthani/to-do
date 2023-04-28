@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { Button } from 'antd';
 
 import TodoList from '../../components/TodoList';
 import { auth } from '../../utils/firebase';
 import './todo.scss';
-import { Button } from 'antd';
 
 function Todo() {
   const navigate = useNavigate();
