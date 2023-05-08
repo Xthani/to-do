@@ -1,8 +1,7 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import {
   persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -10,28 +9,10 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-
-import todoReducer from './reducers/todoSlice';
-import userReducer from './reducers/userSlice';
-import messageReducer from './reducers/messageSlice';
-
-const rootReducer = combineReducers({
-  todoReducer,
-  userReducer,
-  messageReducer,
-});
-
-const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['todoReducer'],
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+import rootReducer from './rootReducer';
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

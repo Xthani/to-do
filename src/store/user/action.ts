@@ -5,9 +5,9 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth';
 
-import { auth } from '../../utils/firebase';
-import { TLoginForm } from '../../components/AuthForm/types';
-import { setMessage } from '../reducers/messageSlice';
+import { auth } from 'utils/firebase';
+import { TLoginForm } from 'components/AuthForms/types';
+import { setNotification } from 'store/notification/slice';
 
 export const fetchSignUp = createAsyncThunk(
   'user/singup',
@@ -22,10 +22,12 @@ export const fetchSignUp = createAsyncThunk(
     } catch (e) {
       if (e instanceof FirebaseError) {
         const errorMessage = e.code.split('/')[1].split('-').join(' ');
-        thunkAPI.dispatch(setMessage({ content: errorMessage, type: 'error' }));
+        thunkAPI.dispatch(
+          setNotification({ content: errorMessage, type: 'error' })
+        );
       }
       thunkAPI.dispatch(
-        setMessage({
+        setNotification({
           content: 'Email is already in use',
           type: 'error',
         })
@@ -49,12 +51,12 @@ export const fetchSignIn = createAsyncThunk(
       if (e instanceof FirebaseError) {
         const errorMessage = e.code.split('/')[1].split('-').join(' ');
         return thunkAPI.dispatch(
-          setMessage({ content: errorMessage, type: 'error' })
+          setNotification({ content: errorMessage, type: 'error' })
         );
       }
 
       return thunkAPI.dispatch(
-        setMessage({
+        setNotification({
           content: 'Something wend wrong. Try later please',
           type: 'error',
         })

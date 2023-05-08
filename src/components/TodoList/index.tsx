@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Checkbox, Input, Button, Typography } from 'antd';
 
-import { useAppDispatch, useAppSelector } from '../../store';
+import { useAppDispatch, useAppSelector } from 'store';
+
 import {
   addTodo,
   editTodo,
   removeTodo,
   toggleTodoStatus,
-} from '../../store/reducers/todoSlice';
-import { todosSelector } from '../../store/selectors';
+} from 'store/todo/slice';
+import { todosSelector } from 'store/todo/selectors';
+
 import './TodoList.scss';
 
-function TodoList(): JSX.Element {
+const TodoList = () => {
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
   const [editingTaskTitle, setEditingTaskTitle] = useState('');
   const [newTask, setNewTask] = useState('');
@@ -119,6 +121,6 @@ function TodoList(): JSX.Element {
       </ul>
     </div>
   );
-}
+};
 
 export default TodoList;

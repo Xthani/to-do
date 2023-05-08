@@ -3,21 +3,19 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Typography } from 'antd';
-import { useSearchParams } from 'react-router-dom';
-import cn from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
-import { loginSchema } from '../../common/validations';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { fetchSignIn } from '../../store/actions/authAC';
-import { isAuthLoadingSelector } from '../../store/selectors';
+import { loginSchema } from 'components/AuthForms/validations';
+import { isAuthLoadingSelector } from 'store/user/selectors';
+import { useAppDispatch, useAppSelector } from 'store';
+import { fetchSignIn } from 'store/user/action';
 
-import { EAuthForm, TLoginForm } from './types';
-import './AuthForm.scss';
+import { TLoginForm } from './types';
+import '../AuthForms.scss';
 
-function Login() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const isActive = searchParams.get('form') !== EAuthForm.RAGISTRATION;
+const Login = () => {
   const isAuthLoading = useAppSelector(isAuthLoadingSelector);
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const {
@@ -33,18 +31,12 @@ function Login() {
     dispatch(fetchSignIn({ email, password }));
   };
 
-  const handleRegisterClick = () => {
-    setSearchParams({ form: EAuthForm.RAGISTRATION });
-  };
+  const handleRegisterClick = () => navigate('/registration');
 
   return (
-    <div className={cn('login', { active: isActive })}>
-      <Form
-        name="normal_login"
-        className="login-form"
-        onFinish={handleSubmit(onSubmit)}
-      >
-        <h2 className="login__title">Login</h2>
+    <div className="form">
+      <Form name="login" onFinish={handleSubmit(onSubmit)}>
+        <h2 className="form__title">Login</h2>
         <Form.Item
           name="email"
           validateStatus={errors.email ? 'error' : ''}
@@ -86,20 +78,20 @@ function Login() {
             disabled={isAuthLoading}
             type="primary"
             htmlType="submit"
-            className="login-form-button login__button"
+            className="form__button"
           >
             Log in
           </Button>
         </Form.Item>
-        <Typography.Text className="login__register">
+        <Typography.Text className="form__register">
           Don&rsquo;t have an account?{' '}
-          <b onClick={handleRegisterClick} className="login__register_text">
+          <b onClick={handleRegisterClick} className="form__register_text">
             Register
           </b>
         </Typography.Text>
       </Form>
     </div>
   );
-}
+};
 
 export default Login;

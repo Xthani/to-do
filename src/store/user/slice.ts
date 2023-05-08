@@ -1,12 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { fetchSignUp, fetchSignIn } from '../actions/authAC';
-import { userInitial } from '../initialState';
+import { fetchSignUp, fetchSignIn } from 'store/user/action';
 
 export interface IUserState {
   error: string | null;
   isLoading: boolean;
 }
+
+const initialState: IUserState = {
+  isLoading: false,
+  error: null,
+};
 
 const authReject = (state: IUserState, action: PayloadAction<string>) => {
   state.isLoading = false;
@@ -21,9 +25,9 @@ const authFulfilled = (state: IUserState) => {
   state.error = '';
 };
 
-export const userSlice = createSlice({
+export const slice = createSlice({
   name: 'user',
-  initialState: userInitial,
+  initialState,
   reducers: {},
   extraReducers: {
     // Signup
@@ -37,4 +41,4 @@ export const userSlice = createSlice({
   },
 });
 
-export default userSlice.reducer;
+export default slice.reducer;
